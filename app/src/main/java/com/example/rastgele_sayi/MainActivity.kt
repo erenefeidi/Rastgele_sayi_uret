@@ -152,8 +152,12 @@ fun RandomNumberGeneratorScreen() {
                     } else {
                         val min = minNumber.toInt()
                         val max = maxNumber.toInt()
+
                         if (min > max) {
                             errorMessage = "Minimum değer maximum değerden büyük olamaz."
+                        } else if (!allowRepeats && (max - min + 1) < numberOfNumbers.toInt()) {
+                            errorMessage =
+                                "Tekrar edilebilirlik kapalı olduğunda, üretilecek sayı adedi maksimum (${max - min + 1}) arasında olmalıdır."
                         } else {
                             errorMessage = ""
                             generatedNumbers = generateRandomNumbers(
@@ -165,7 +169,9 @@ fun RandomNumberGeneratorScreen() {
                         }
                     }
                 },
-                modifier = Modifier
+
+
+                    modifier = Modifier
                     .fillMaxWidth()
                     .padding(bottom = 16.dp)
             ) {
